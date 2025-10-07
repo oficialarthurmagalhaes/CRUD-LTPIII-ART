@@ -24,6 +24,7 @@ include "conexao.php";
                 <input id="senha" name="senha" type="password" placeholder="Senha" required>
                 <!--<input id="confirmarsenha" name="confirmarsenha" type="password" placeholder="Confirmar Senha" required>-->
                 <input id="cadastrese" type="submit" value="Cadastre-se">
+                <a href="index.php">Já possui Login? Faça login</a>
             </form>
         </div>
     </div>
