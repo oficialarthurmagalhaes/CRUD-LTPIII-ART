@@ -2,7 +2,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $senha = "";
-$banco = "crud_arthuris";
+$banco = "crud_lptiii_art";
 
 $conexao = mysqli_connect($servidor, $usuario, $senha, $banco);
 
