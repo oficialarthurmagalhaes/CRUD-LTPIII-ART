@@ -1,3 +1,3 @@
-# 👨🏽‍💻 Repositório de Teste para OFICINA realizada no IFTO - Campus Paraíso dia 14/02/23 😁
+# 👨🏽‍💻 Repositório da Atividade de criação de um CRUD - LTPIII - 06/10/2025😁
 
-Repositório para que os colegas acessem e reproduzam o que foi ministrado na oficina 👨🏽‍💻
+Repositório para acessar a atividade de LTPIII da criação de um sistema WEB com CRUD feito em PHP🐘
