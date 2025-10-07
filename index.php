@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="box">
-            <form>
+            <form action="painel_adm.php" method="POST">
                 <h1>Login</h1>
                 <input id="email" type="email" placeholder="Email" required>
                 <input id="senha" type="password" placeholder="Senha" required>
@@ -23,28 +23,6 @@
             </form>
         </div>
     </div>
-    <main>
-        <!--
-include "conexao.php";
-
-$query = "SELECT * FROM usuarios";
-$resultado = mysqli_query($conexao, $query);
-
-if(mysqli_num_rows($resultado) > 0){
-    echo "<h1> Lista de Usuários </h1>";
-    echo ("Número de Usuários: " . mysqli_num_rows($resultado) . "<br><br>");
-
-    while($usuario = mysqli_fetch_array($resultado)){
-        echo "Nome: " . $usuario["nome_completo"] . "<br>";
-        echo "Nome: " . $usuario["nome_usuario"] . "<br>";
-        echo "Email: " . $usuario["email"] . "<br>";
-    };
-}
-else{
-    echo "Nenhum dado encontrado!";
-}
--->
-    </main>
 </body>
 </html>
 
