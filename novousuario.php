@@ -10,7 +10,7 @@ $senha = $_POST["senha"];
 $query = "INSERT INTO usuarios (nome_completo,nome_usuario, email, senha) VALUES ('$nome_completo','$nome_usuario', '$email','$senha')";
 
 if(mysqli_query($conexao, $query)){
-    header("Location: /oficinaHTMLCSS/index.php");
+    header("Location: index.php");
     exit;
 }
 else{
