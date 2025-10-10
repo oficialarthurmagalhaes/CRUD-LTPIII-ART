@@ -7,7 +7,7 @@ $matricula = $_POST["matricula"];
 $email = $_POST["email"];
 $senha = $_POST["senha"];
 
-$query = "INSERT INTO usuarios (nome_completo,matricula, email, senha) VALUES ('$nome_completo','$matricula', '$email','$senha')";
+$query = "INSERT INTO usuarios (nome_completo, matricula, email, senha) VALUES ('$nome_completo','$matricula', '$email','$senha')";
 
 if(mysqli_query($conexao, $query)){
     header("Location: index.php");
