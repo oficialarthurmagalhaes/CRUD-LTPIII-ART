@@ -15,7 +15,6 @@
     
     <?php
     include "conexao.php";
-
     //VERIFICAR AUTENTICAÇÃO DE USUÁRIO E SENHA
     // $email = $_POST["email"];
     // $email = $_POST["senha"];
@@ -27,15 +26,15 @@
         echo "<h1> Lista de Usuários </h1>";
         echo ("Número de Usuários: " . mysqli_num_rows($resultado) . "<br><br>");
 
-        while($usuario = mysqli_fetch_array($resultado)){
-            echo "Nome Completo: " . $usuario["nome_completo"];
-            echo "<br>";
-            echo "Nome de Usuário: " . $usuario["nome_usuario"];
-            echo "<br>";
-            echo "Email: " . $usuario["email"];
-            echo "<br>";
-            echo "<br>";
-        };
+        // while($usuario = mysqli_fetch_array($resultado)){
+        //     echo "Nome Completo: " . $usuario["nome_completo"];
+        //     echo "<br>";
+        //     echo "Matrícula: " . $usuario["matricula"];
+        //     echo "<br>";
+        //     echo "Email: " . $usuario["email"];
+        //     echo "<br>";
+        //     echo "<br>";
+        // };
     }
     else{
         echo "Nenhum dado encontrado!";
