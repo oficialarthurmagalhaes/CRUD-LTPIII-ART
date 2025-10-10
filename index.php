@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="box">
-            <form action="painel_adm.php" method="POST">
+            <form action="listar_usuarios.php" method="POST">
                 <h1>Login</h1>
                 <input id="email" type="email" placeholder="Email" required>
                 <input id="senha" type="password" placeholder="Senha" required>
