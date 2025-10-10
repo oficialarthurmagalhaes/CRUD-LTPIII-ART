@@ -19,7 +19,7 @@ include "conexao.php";
             <form action="./novousuario.php" method="post">
                 <h1>Cadastro</h1>
                 <input id="nome_completo" name="nome_completo" type="text" placeholder="Nome completo" required>
-                <input id="nome_usuario" name="nome_usuario" type="text" placeholder="Nome do usuario" required>
+                <input id="matricula" name="matricula" type="text" placeholder="Matrícula" required>
                 <input id="email" name="email" type="email" placeholder="Email" required>
                 <input id="senha" name="senha" type="password" placeholder="Senha" required>
                 <!--<input id="confirmarsenha" name="confirmarsenha" type="password" placeholder="Confirmar Senha" required>-->
