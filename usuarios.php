@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
+    header("Location: login.php");
+    exit;
+}
+
 include "conexao.php";
 
 // Função de exclusão
@@ -26,6 +32,20 @@ if (isset($_POST['editar'])) {
     exit;
 }
 
+// Função de cadastro
+if (isset($_POST['cadastrar'])) {
+    $nome = mysqli_real_escape_string($conexao, $_POST['nome_completo']);
+    $matricula = mysqli_real_escape_string($conexao, $_POST['matricula']);
+    $email = mysqli_real_escape_string($conexao, $_POST['email']);
+    $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
+
+    $query = "INSERT INTO usuarios (nome_completo, matricula, email, senha)
+              VALUES ('$nome', '$matricula', '$email', '$senha')";
+    mysqli_query($conexao, $query);
+    header("Location: usuarios.php");
+    exit;
+}
+
 // Consulta todos os usuários
 $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario ASC");
 ?>
@@ -40,8 +60,37 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
 </head>
 <body>
 
+<!-- ========== NAVBAR SUPERIOR ========== -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-white" href="#">Painel Administrativo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'usuarios.php' ? 'active' : '' ?>" href="usuarios.php">Usuários</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : '' ?>" href="dashboard.php">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger fw-bold" href="logout.php">Sair</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- ===================================== -->
+
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Gerenciamento de Usuários</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gerenciamento de Usuários</h2>
+        <!-- Botão de cadastro -->
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cadastroModal">+ Cadastrar Usuário</button>
+    </div>
 
     <table class="table table-striped table-bordered shadow-sm">
         <thead class="table-dark text-center">
@@ -62,7 +111,6 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
                     <td><?= htmlspecialchars($usuario['matricula']) ?></td>
                     <td><?= htmlspecialchars($usuario['email']) ?></td>
                     <td class="text-center">
-                        <!-- Botão Visualizar -->
                         <button class="btn btn-info btn-sm text-white" 
                             data-bs-toggle="modal" 
                             data-bs-target="#visualizarModal" 
@@ -74,7 +122,6 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
                             Visualizar
                         </button>
 
-                        <!-- Botão Editar -->
                         <button class="btn btn-warning btn-sm text-white"
                             data-bs-toggle="modal"
                             data-bs-target="#editarModal"
@@ -86,7 +133,6 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
                             Editar
                         </button>
 
-                        <!-- Botão Excluir -->
                         <a href="usuarios.php?excluir=<?= $usuario['id_usuario'] ?>"
                            class="btn btn-danger btn-sm"
                            onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
@@ -102,55 +148,35 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
     </table>
 </div>
 
-<!-- Modal Visualizar -->
-<div class="modal fade" id="visualizarModal" tabindex="-1" aria-labelledby="visualizarModalLabel" aria-hidden="true">
+<!-- Modal Cadastrar -->
+<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title">Detalhes do Usuário</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <p><strong>ID:</strong> <span id="view-id"></span></p>
-        <p><strong>Nome:</strong> <span id="view-nome"></span></p>
-        <p><strong>Matrícula:</strong> <span id="view-matricula"></span></p>
-        <p><strong>Email:</strong> <span id="view-email"></span></p>
-        <p><strong>Senha:</strong> <span id="view-senha"></span></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Editar -->
-<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-warning text-white">
-        <h5 class="modal-title">Editar Usuário</h5>
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Cadastrar Novo Usuário</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <form method="POST" action="usuarios.php">
         <div class="modal-body">
-          <input type="hidden" name="id_usuario" id="edit-id">
           <div class="mb-3">
-            <label for="edit-nome" class="form-label">Nome Completo</label>
-            <input type="text" class="form-control" name="nome_completo" id="edit-nome" required>
+            <label for="cad-nome" class="form-label">Nome Completo</label>
+            <input type="text" class="form-control" name="nome_completo" id="cad-nome" required>
           </div>
           <div class="mb-3">
-            <label for="edit-matricula" class="form-label">Matrícula</label>
-            <input type="text" class="form-control" name="matricula" id="edit-matricula" required>
+            <label for="cad-matricula" class="form-label">Matrícula</label>
+            <input type="text" class="form-control" name="matricula" id="cad-matricula" required>
           </div>
           <div class="mb-3">
-            <label for="edit-email" class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" id="edit-email" required>
+            <label for="cad-email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="cad-email" required>
           </div>
           <div class="mb-3">
-            <label for="edit-senha" class="form-label">Senha</label>
-            <input type="text" class="form-control" name="senha" id="edit-senha" required>
+            <label for="cad-senha" class="form-label">Senha</label>
+            <input type="text" class="form-control" name="senha" id="cad-senha" required>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" name="editar" class="btn btn-success">Salvar Alterações</button>
+          <button type="submit" name="cadastrar" class="btn btn-success">Cadastrar</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </form>
@@ -158,8 +184,10 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Outros modais (Visualizar e Editar) -->
+<!-- ... (mantém os seus modais existentes) ... -->
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 // Modal Visualizar
 const visualizarModal = document.getElementById('visualizarModal');
