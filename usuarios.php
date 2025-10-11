@@ -24,7 +24,7 @@ if (isset($_POST['editar'])) {
     $email = mysqli_real_escape_string($conexao, $_POST['email']);
     $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
 
-    $query = "UPDATE usuarios 
+    $query = "UPDATE usuarios
               SET nome_completo='$nome', matricula='$matricula', email='$email', senha='$senha'
               WHERE id_usuario=$id";
     mysqli_query($conexao, $query);
@@ -88,7 +88,6 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Gerenciamento de Usuários</h2>
-        <!-- Botão de cadastro -->
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cadastroModal">+ Cadastrar Usuário</button>
     </div>
 
@@ -111,9 +110,9 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
                     <td><?= htmlspecialchars($usuario['matricula']) ?></td>
                     <td><?= htmlspecialchars($usuario['email']) ?></td>
                     <td class="text-center">
-                        <button class="btn btn-info btn-sm text-white" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#visualizarModal" 
+                        <button class="btn btn-info btn-sm text-white"
+                            data-bs-toggle="modal"
+                            data-bs-target="#visualizarModal"
                             data-id="<?= $usuario['id_usuario'] ?>"
                             data-nome="<?= htmlspecialchars($usuario['nome_completo']) ?>"
                             data-matricula="<?= htmlspecialchars($usuario['matricula']) ?>"
@@ -159,20 +158,20 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
       <form method="POST" action="usuarios.php">
         <div class="modal-body">
           <div class="mb-3">
-            <label for="cad-nome" class="form-label">Nome Completo</label>
-            <input type="text" class="form-control" name="nome_completo" id="cad-nome" required>
+            <label class="form-label">Nome Completo</label>
+            <input type="text" class="form-control" name="nome_completo" required>
           </div>
           <div class="mb-3">
-            <label for="cad-matricula" class="form-label">Matrícula</label>
-            <input type="text" class="form-control" name="matricula" id="cad-matricula" required>
+            <label class="form-label">Matrícula</label>
+            <input type="text" class="form-control" name="matricula" required>
           </div>
           <div class="mb-3">
-            <label for="cad-email" class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" id="cad-email" required>
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" required>
           </div>
           <div class="mb-3">
-            <label for="cad-senha" class="form-label">Senha</label>
-            <input type="text" class="form-control" name="senha" id="cad-senha" required>
+            <label class="form-label">Senha</label>
+            <input type="text" class="form-control" name="senha" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -184,8 +183,61 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
   </div>
 </div>
 
-<!-- Outros modais (Visualizar e Editar) -->
-<!-- ... (mantém os seus modais existentes) ... -->
+<!-- Modal Visualizar -->
+<div class="modal fade" id="visualizarModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title">Detalhes do Usuário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>ID:</strong> <span id="view-id"></span></p>
+        <p><strong>Nome:</strong> <span id="view-nome"></span></p>
+        <p><strong>Matrícula:</strong> <span id="view-matricula"></span></p>
+        <p><strong>Email:</strong> <span id="view-email"></span></p>
+        <p><strong>Senha:</strong> <span id="view-senha"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal fade" id="editarModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-white">
+        <h5 class="modal-title">Editar Usuário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="usuarios.php">
+        <div class="modal-body">
+          <input type="hidden" name="id_usuario" id="edit-id">
+          <div class="mb-3">
+            <label class="form-label">Nome Completo</label>
+            <input type="text" class="form-control" name="nome_completo" id="edit-nome" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Matrícula</label>
+            <input type="text" class="form-control" name="matricula" id="edit-matricula" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="edit-email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Senha</label>
+            <input type="text" class="form-control" name="senha" id="edit-senha" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="editar" class="btn btn-success">Salvar Alterações</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>

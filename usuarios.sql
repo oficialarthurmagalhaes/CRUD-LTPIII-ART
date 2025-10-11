@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/10/2025 às 05:23
+-- Tempo de geração: 11/10/2025 às 01:30
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -32,18 +32,20 @@ CREATE TABLE `usuarios` (
   `nome_completo` varchar(100) DEFAULT NULL,
   `matricula` varchar(100) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `senha` varchar(100) DEFAULT NULL
+  `senha` varchar(100) DEFAULT NULL,
+  `data_cadastro` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nome_completo`, `matricula`, `email`, `senha`) VALUES
-(1, 'Arthur da Silva Magalhães', '202410630005', 'arthurmagalhaes700@gmail.com', '1234'),
-(2, 'Sophia da Silva Magalhães', 'SophiaMagalhaes', 'sophiamagalhaes90@gmail.com', '1234'),
-(3, 'Saulo Sousa Magalhães', 'SauloMagalhaes', 'saulosmagalhaes40@gmail.com', '1234'),
-(4, 'Alcione da Silva Barros', '199810630005', 'alcionebrrs76@gmail.com', '1234');
+INSERT INTO `usuarios` (`id_usuario`, `nome_completo`, `matricula`, `email`, `senha`, `data_cadastro`) VALUES
+(1, 'Arthur da Silva Magalhães', '202410630005', 'arthurmagalhaes700@gmail.com', '1234', '2025-10-10 19:48:13'),
+(2, 'Sophia da Silva Magalhães', 'SophiaMagalhaes', 'sophiamagalhaes90@gmail.com', '1234', '2025-10-10 19:48:13'),
+(3, 'Saulo Sousa Magalhães', 'SauloMagalhaes', 'saulosmagalhaes40@gmail.com', '1234', '2025-10-10 19:48:13'),
+(4, 'Alcione da Silva Barros', '199810630005', 'alcionebrrs76@gmail.com', '1234', '2025-10-10 19:48:13'),
+(6, 'david gostoso', '1123344', 'david@gmail.com', 'sdfsdfsd', '2025-10-10 19:48:13');
 
 --
 -- Índices para tabelas despejadas
@@ -63,7 +65,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
