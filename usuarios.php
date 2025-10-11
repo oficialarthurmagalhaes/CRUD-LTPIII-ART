@@ -61,7 +61,7 @@ $resultado = mysqli_query($conexao, "SELECT * FROM usuarios ORDER BY id_usuario 
 <body>
 
 <!-- ========== NAVBAR SUPERIOR ========== -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold text-white" href="#">Painel Administrativo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
